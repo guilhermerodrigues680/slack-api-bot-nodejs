@@ -4,7 +4,7 @@ const log = require('./logger').logger;
 
 const slackApiInstance = axios.create({
   baseURL: 'https://slack.com/api',
-  headers: { 'Authorization': 'Bearer xoxb-1440055844933-1553474135474-KIVFB0qL4l629BLWIAW5fcWE' }
+  headers: { 'Authorization': 'Bearer xoxb-1440055844933-1553474135474-WjEXCE7FXCDOrzWA1nZOJOz5' }
 });
 
 module.exports.handleAction = (body) => {
