@@ -1,23 +1,24 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const app = express()
-const port = 3000
+const slackAction = require('./slack-action');
+const log = require('./logger').logger;
+
+const app = express();
+const port = 3000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/health', (req, res) => {
-  res.send({ message: "Serviço em execução!" })
+  res.send({ message: "Serviço em execução!" });
 });
 
 app.post('/slack/action-endpoint', (req, res) => {
-  console.log('POST /slack/action-endpoint -> ', req.body)
-  res.send(req.body['challenge'])
-})
+  log.child({ reqBody: req.body }).debug('POST /slack/action-endpoint');
+  res.send(slackAction.handleAction(req.body));
+});
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
-
-console.log(); // repl.it
+  log.info(`App listening at http://localhost:${port}`);
+});
